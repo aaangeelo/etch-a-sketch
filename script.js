@@ -1,7 +1,7 @@
 let gridContainer = document.getElementById("grid-container");
 let clear = document.getElementById("clear");
 
-let value = 16;
+let value = 32;
 let idNum = 1;
 for (i = 0; i < value; i++) {
   for (j = 1; j <= value; j++) {
