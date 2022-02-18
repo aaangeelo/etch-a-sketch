@@ -8,7 +8,6 @@ for (i = 0; i < value; i++) {
     let grids = document.createElement("div");
     grids.classList.add("grids");
     grids.id = `id${idNum}`;
-    grids.setAttribute("draggable", "false");
     gridContainer.appendChild(grids);
     let wh = 500 / value;
     grids.style.width = `${wh}px`;
@@ -19,9 +18,7 @@ for (i = 0; i < value; i++) {
 
 // colors the grids with black on hover
 let isDrawing = false;
-let x = 0;
-let y = 0;
-gridContainer.addEventListener("mousedown", (e) => {
+gridContainer.addEventListener("click", (e) => {
   isDrawing = true;
   if (isDrawing === true) {
     if (e.target !== e.currentTarget) {
@@ -31,7 +28,7 @@ gridContainer.addEventListener("mousedown", (e) => {
   }
 });
 
-gridContainer.addEventListener("mousemove", (e) => {
+gridContainer.addEventListener("mouseover", (e) => {
   if (isDrawing === true) {
     if (e.target !== e.currentTarget) {
       let grids = document.getElementById(e.target.id);
@@ -40,7 +37,7 @@ gridContainer.addEventListener("mousemove", (e) => {
   }
 });
 
-gridContainer.addEventListener("mouseup", () => {
+gridContainer.addEventListener("dblclick", () => {
   isDrawing = false;
 });
 
