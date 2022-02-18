@@ -1,12 +1,12 @@
 .grid-container {
-  border: black solid 5px;
   box-sizing: border-box;
   width: 510px;
   height: 510px;
+  border: black solid 5px;
 }
 
 .grids {
-  border: violet solid 1px;
+  border: black solid 1px;
   box-sizing: border-box;
   float: left;
 }

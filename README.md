@@ -5,8 +5,8 @@ A browser version of something between a sketchpad and an Etch-A-Sketch.
 ## What to do
 
 - [x] Make a 16x16 grid on a pad
-- [ ] Make the grids ajustable
-- [ ] Make it so that the height and width of the grids on the pad automatically adjust and fit to the width and height of the pad.
+- [x] Make the grids ajustable
+- [x] Make it so that the height and width of the grids on the pad automatically adjust and fit to the width and height of the pad.
 - [ ] When the user clicks the grid, change its color.
 
 ### Later
