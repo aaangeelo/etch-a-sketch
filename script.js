@@ -1,6 +1,8 @@
 // GLOBAL VALUES
 let gridContainer = document.getElementById("grid-container");
-let clear = document.getElementById("clear");
+let erase = document.getElementById("erase");
+let black = document.getElementById("black");
+let rgb = document.getElementById("rgb");
 
 // CREATE AND REMOVE GRIDS
 function displayGrids(gridSizeValue) {
@@ -29,28 +31,30 @@ function removeGrids() {
 }
 
 // COLORS THE GRID
-function colorGrids(color, e) {
-  if (isDrawing === true) {
-    if (e.target !== e.currentTarget) {
-      let grids = document.getElementById(e.target.id);
-      grids.style.backgroundColor = color;
+function activateColorizer(color) {
+  let isDrawing = false;
+  function colorGrids(color, e) {
+    if (isDrawing === true) {
+      if (e.target !== e.currentTarget) {
+        let grids = document.getElementById(e.target.id);
+        grids.style.backgroundColor = color;
+      }
     }
   }
+
+  gridContainer.addEventListener("click", (e) => {
+    isDrawing = true;
+    colorGrids(color, e);
+  });
+
+  gridContainer.addEventListener("mouseover", (e) => {
+    colorGrids(color, e);
+  });
+
+  gridContainer.addEventListener("dblclick", () => {
+    isDrawing = false;
+  });
 }
-
-let isDrawing = false;
-gridContainer.addEventListener("click", (e) => {
-  isDrawing = true;
-  colorGrids("black", e);
-});
-
-gridContainer.addEventListener("mouseover", (e) => {
-  colorGrids("black", e);
-});
-
-gridContainer.addEventListener("dblclick", () => {
-  isDrawing = false;
-});
 
 // EXECUTIONS AREA
 let defaultGridSizeValue = 8;
@@ -62,10 +66,20 @@ document.getElementById("submit-grid-size").addEventListener("click", () => {
   displayGrids(newGridSizeValue);
 });
 
-// clears the color
-clear.addEventListener("click", () => {
+// CLEARs the colors on the grid
+document.getElementById("clear").addEventListener("click", () => {
   let allgrids = document.querySelectorAll(".grids");
   for (let i = 0; i < allgrids.length; i++) {
     allgrids[i].style.backgroundColor = "transparent";
   }
+});
+
+// colors the grid with BLACK
+document.getElementById("black").addEventListener("click", () => {
+  activateColorizer("black");
+});
+
+// colors the grid with RGB
+document.getElementById("rgb").addEventListener("click", () => {
+  activateColorizer("red");
 });
