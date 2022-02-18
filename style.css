@@ -1,14 +1,12 @@
 .grid-container {
-  border: black solid;
+  border: black solid 5px;
   box-sizing: border-box;
-  width: 500px;
-  height: 500px;
+  width: 510px;
+  height: 510px;
 }
 
 .grids {
-  border: violet solid;
+  border: violet solid 1px;
   box-sizing: border-box;
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
+  float: left;
 }
