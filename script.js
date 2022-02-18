@@ -1,8 +1,5 @@
 // GLOBAL VALUES
 let gridContainer = document.getElementById("grid-container");
-let erase = document.getElementById("erase");
-let black = document.getElementById("black");
-let rgb = document.getElementById("rgb");
 
 // CREATE AND REMOVE GRIDS
 function displayGrids(gridSizeValue) {
@@ -37,7 +34,11 @@ function activateColorizer(color) {
     if (isDrawing === true) {
       if (e.target !== e.currentTarget) {
         let grids = document.getElementById(e.target.id);
-        grids.style.backgroundColor = color;
+        if (typeof color === "function") {
+          grids.style.backgroundColor = color();
+        } else {
+          grids.style.backgroundColor = color;
+        }
       }
     }
   }
@@ -54,6 +55,16 @@ function activateColorizer(color) {
   gridContainer.addEventListener("dblclick", () => {
     isDrawing = false;
   });
+}
+
+// RANDOM COLOR
+function getColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
 
 // EXECUTIONS AREA
@@ -81,5 +92,5 @@ document.getElementById("black").addEventListener("click", () => {
 
 // colors the grid with RGB
 document.getElementById("rgb").addEventListener("click", () => {
-  activateColorizer("red");
+  activateColorizer(getColor);
 });
