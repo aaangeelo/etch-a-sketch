@@ -36,8 +36,10 @@ function activateColorizer(color) {
         let grids = document.getElementById(e.target.id);
         if (typeof color === "function") {
           grids.style.backgroundColor = color();
+          grids.style.borderColor = "transparent";
         } else {
           grids.style.backgroundColor = color;
+          grids.style.borderColor = "transparent";
         }
       }
     }
@@ -82,6 +84,7 @@ document.getElementById("clear").addEventListener("click", () => {
   let allgrids = document.querySelectorAll(".grids");
   for (let i = 0; i < allgrids.length; i++) {
     allgrids[i].style.backgroundColor = "transparent";
+    allgrids[i].style.borderColor = "black";
   }
 });
 
