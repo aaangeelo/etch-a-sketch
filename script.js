@@ -1,3 +1,4 @@
+// GLOBAL VALUES
 let gridContainer = document.getElementById("grid-container");
 let clear = document.getElementById("clear");
 
@@ -26,39 +27,39 @@ function removeGrids() {
     grids[0].parentNode.removeChild(grids[0]);
   }
 }
-let defaultGridSizeValue = 8;
-displayGrids(defaultGridSizeValue);
 
-document.getElementById("submit-grid-size").addEventListener("click", () => {
-  let gridSize = document.getElementById("grid-size");
-  let newGridSizeValue = gridSize.value;
-  removeGrids();
-  displayGrids(newGridSizeValue);
-});
+// COLORS THE GRID
+function colorGrids(color, e) {
+  if (isDrawing === true) {
+    if (e.target !== e.currentTarget) {
+      let grids = document.getElementById(e.target.id);
+      grids.style.backgroundColor = color;
+    }
+  }
+}
 
-// colors the grids with black on hover
 let isDrawing = false;
 gridContainer.addEventListener("click", (e) => {
   isDrawing = true;
-  if (isDrawing === true) {
-    if (e.target !== e.currentTarget) {
-      let grids = document.getElementById(e.target.id);
-      grids.style.backgroundColor = "black";
-    }
-  }
+  colorGrids("black", e);
 });
 
 gridContainer.addEventListener("mouseover", (e) => {
-  if (isDrawing === true) {
-    if (e.target !== e.currentTarget) {
-      let grids = document.getElementById(e.target.id);
-      grids.style.backgroundColor = "black";
-    }
-  }
+  colorGrids("black", e);
 });
 
 gridContainer.addEventListener("dblclick", () => {
   isDrawing = false;
+});
+
+// EXECUTIONS AREA
+let defaultGridSizeValue = 8;
+displayGrids(defaultGridSizeValue);
+
+document.getElementById("submit-grid-size").addEventListener("click", () => {
+  let newGridSizeValue = document.getElementById("grid-size").value;
+  removeGrids();
+  displayGrids(newGridSizeValue);
 });
 
 // clears the color
