@@ -17,15 +17,6 @@ for (i = 0; i < value; i++) {
 }
 
 // colors the grids with black on hover
-gridContainer.addEventListener("mouseover", colorBlack, false);
-function colorBlack(e) {
-  if (e.target !== e.currentTarget) {
-    let grids = document.getElementById(e.target.id);
-    grids.style.backgroundColor = "black";
-  }
-
-  e.stopPropagation();
-}
 
 // clears the color
 clear.addEventListener("click", () => {
