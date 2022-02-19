@@ -29,24 +29,34 @@ function removeGrids() {
 }
 
 // COLORS THE GRID
-function activateColorizer(color) {
-  function colorGrids(color, e) {
-    if (isDrawing === true) {
-      if (e.target !== e.currentTarget) {
-        let grids = document.getElementById(e.target.id);
-        if (typeof color === "function") {
-          grids.style.backgroundColor = color();
-          grids.style.borderColor = "transparent";
-        } else {
-          grids.style.backgroundColor = color;
-          grids.style.borderColor = "transparent";
-        }
+function colorGrids(color, e) {
+  if (isDrawing === true) {
+    if (e.target !== e.currentTarget) {
+      let grids = document.getElementById(e.target.id);
+      if (typeof color === "function") {
+        grids.style.backgroundColor = color();
+        grids.style.borderColor = "transparent";
+      } else {
+        grids.style.backgroundColor = color;
+        grids.style.borderColor = "transparent";
       }
-
-      e.stopPropagation();
     }
-  }
 
+    e.stopPropagation();
+  }
+}
+
+// RANDOM COLOR
+function getColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function activateColorizer(color) {
   gridContainer.addEventListener("click", (e) => {
     isDrawing = true;
     colorGrids(color, e);
@@ -61,35 +71,29 @@ function activateColorizer(color) {
   });
 }
 
-// RANDOM COLOR
-function getColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+function decolorizeGrids(e) {
+  isDrawing = false;
+  let grids = document.getElementById(e.target.id);
+  grids.style.backgroundColor = "transparent";
+  grids.style.borderColor = "black";
 }
 
 function selectMode() {
   if (this.value === document.getElementById("clear").value) {
     isDrawing = false;
-    gridContainer.addEventListener("click", () => {
-      isDrawing = false;
+    gridContainer.addEventListener("click", (e) => {
+      decolorizeGrids(e);
     });
     let allgrids = document.querySelectorAll(".grids");
     for (let i = 0; i < allgrids.length; i++) {
       allgrids[i].style.backgroundColor = "transparent";
       allgrids[i].style.borderColor = "black";
     }
-  } else if (this.value === document.getElementById("eras").value) {
+  } else if (this.value === document.getElementById("erase").value) {
     isDrawing = false;
     gridContainer.addEventListener("click", (e) => {
       if (e.target !== e.currentTarget) {
-        isDrawing = false;
-        let grids = document.getElementById(e.target.id);
-        grids.style.backgroundColor = "transparent";
-        grids.style.borderColor = "black";
+        decolorizeGrids(e);
       }
     });
   } else if (this.value === document.getElementById("black").value) {
