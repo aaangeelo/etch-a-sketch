@@ -1,5 +1,6 @@
 // GLOBAL VALUES
 let gridContainer = document.getElementById("grid-container");
+let isDrawing = false;
 
 // CREATE AND REMOVE GRIDS
 function displayGrids(gridSizeValue) {
@@ -29,7 +30,6 @@ function removeGrids() {
 
 // COLORS THE GRID
 function activateColorizer(color) {
-  let isDrawing = false;
   function colorGrids(color, e) {
     if (isDrawing === true) {
       if (e.target !== e.currentTarget) {
@@ -42,6 +42,8 @@ function activateColorizer(color) {
           grids.style.borderColor = "transparent";
         }
       }
+
+      e.stopPropagation();
     }
   }
 
@@ -69,6 +71,34 @@ function getColor() {
   return color;
 }
 
+function selectMode() {
+  if (this.value === document.getElementById("clear").value) {
+    isDrawing = false;
+    gridContainer.addEventListener("click", () => {
+      isDrawing = false;
+    });
+    let allgrids = document.querySelectorAll(".grids");
+    for (let i = 0; i < allgrids.length; i++) {
+      allgrids[i].style.backgroundColor = "transparent";
+      allgrids[i].style.borderColor = "black";
+    }
+  } else if (this.value === document.getElementById("eras").value) {
+    isDrawing = false;
+    gridContainer.addEventListener("click", (e) => {
+      if (e.target !== e.currentTarget) {
+        isDrawing = false;
+        let grids = document.getElementById(e.target.id);
+        grids.style.backgroundColor = "transparent";
+        grids.style.borderColor = "black";
+      }
+    });
+  } else if (this.value === document.getElementById("black").value) {
+    activateColorizer("black");
+  } else if (this.value === document.getElementById("rgb").value) {
+    activateColorizer(getColor);
+  }
+}
+
 // EXECUTIONS AREA
 let defaultGridSizeValue = 8;
 displayGrids(defaultGridSizeValue);
@@ -79,21 +109,7 @@ document.getElementById("submit-grid-size").addEventListener("click", () => {
   displayGrids(newGridSizeValue);
 });
 
-// CLEARs the colors on the grid
-document.getElementById("clear").addEventListener("click", () => {
-  let allgrids = document.querySelectorAll(".grids");
-  for (let i = 0; i < allgrids.length; i++) {
-    allgrids[i].style.backgroundColor = "transparent";
-    allgrids[i].style.borderColor = "black";
-  }
-});
-
-// colors the grid with BLACK
-document.getElementById("black").addEventListener("click", () => {
-  activateColorizer("black");
-});
-
-// colors the grid with RGB
-document.getElementById("rgb").addEventListener("click", () => {
-  activateColorizer(getColor);
-});
+let modes = document.querySelectorAll('input[name="mode"]');
+for (const mode of modes) {
+  mode.addEventListener("change", selectMode);
+}
