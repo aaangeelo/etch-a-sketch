@@ -30,7 +30,7 @@ function removeGrids() {
 }
 
 // RANDOM COLOR
-function getColor() {
+function getRandomColor() {
   var letters = "0123456789ABCDEF";
   var color = "#";
   for (var i = 0; i < 6; i++) {
@@ -44,11 +44,10 @@ function colorGrids(e) {
   isDrawing = true;
   if (e.target !== e.currentTarget) {
     let grids = document.getElementById(e.target.id);
-    if (typeof color === "function") {
-      grids.style.backgroundColor = color();
-    } else {
-      grids.style.backgroundColor = color;
-    }
+    typeof color === "function"
+      ? (grids.style.backgroundColor = color())
+      : (grids.style.backgroundColor = color);
+
     grids.style.borderColor = "transparent";
   }
 
@@ -79,21 +78,21 @@ function decolorizeGrids(e) {
 function selectMode() {
   isDrawing = false;
   if (this.value === document.getElementById("clear").value) {
+    gridContainer.removeEventListener("click", colorGrids);
     let allgrids = document.querySelectorAll(".grids");
     for (let i = 0; i < allgrids.length; i++) {
       allgrids[i].style.backgroundColor = "transparent";
       allgrids[i].style.borderColor = "black";
     }
-    gridContainer.removeEventListener("click", colorGrids);
   } else if (this.value === document.getElementById("erase").value) {
     gridContainer.removeEventListener("click", colorGrids);
     gridContainer.addEventListener("click", decolorizeGrids);
   } else if (this.value === document.getElementById("black").value) {
+    gridContainer.removeEventListener("click", decolorizeGrids);
     activateColorizer("black");
-    gridContainer.removeEventListener("click", decolorizeGrids);
   } else if (this.value === document.getElementById("rgb").value) {
-    activateColorizer(getColor);
     gridContainer.removeEventListener("click", decolorizeGrids);
+    activateColorizer(getRandomColor);
   }
 }
 
