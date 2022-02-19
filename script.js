@@ -1,7 +1,7 @@
 // GLOBAL VALUES
 let gridContainer = document.getElementById("grid-container");
 let isDrawing = false;
-console.log(isDrawing);
+let color;
 
 // CREATE AND REMOVE GRIDS
 function displayGrids(gridSizeValue) {
@@ -30,8 +30,7 @@ function removeGrids() {
 }
 
 // COLORS THE GRID
-function colorGrids(color, e) {
-  isDrawing = true;
+function colorGrids(e) {
   if (isDrawing === true) {
     if (e.target !== e.currentTarget) {
       let grids = document.getElementById(e.target.id);
@@ -57,22 +56,16 @@ function getColor() {
   return color;
 }
 
-function activateColorizer(color) {
-  function colorGridsWrapper(e) {
-    colorGrids(color, e);
-  }
+function colorize(e) {
+  colorGrids(e);
+  console.log(isDrawing, "click act");
+  gridContainer.addEventListener("mouseover", colorGrids);
+}
 
-  gridContainer.addEventListener("click", (e) => {
-    colorGrids(color, e);
-    console.log(isDrawing, "click activate");
-  });
+function activateColorizer(colour) {
+  color = colour;
 
-  gridContainer.addEventListener("mouseover", (e) => {
-    if (isDrawing === true) {
-      colorGrids(color, e);
-      console.log(isDrawing, "mouseover activate");
-    }
-  });
+  gridContainer.addEventListener("click", colorize);
 
   gridContainer.addEventListener("dblclick", () => {
     isDrawing = false;
@@ -80,7 +73,6 @@ function activateColorizer(color) {
 }
 
 function decolorizeGrids(e) {
-  isDrawing = false;
   let grids = document.getElementById(e.target.id);
   grids.style.backgroundColor = "transparent";
   grids.style.borderColor = "black";
@@ -96,17 +88,20 @@ function selectMode() {
     }
     //
     isDrawing = false;
-    gridContainer.addEventListener("click", decolorizeGrids);
-    // console.log(isDrawing, "clear else if");
+    gridContainer.removeEventListener("click", colorize);
+    console.log(isDrawing, "clear else if");
   } else if (this.value === document.getElementById("erase").value) {
-    gridContainer.removeEventListener("click", activateColorizer);
+    gridContainer.removeEventListener("click", colorize);
     //
     isDrawing = false;
     gridContainer.addEventListener("click", decolorizeGrids);
-    // console.log(isDrawing, "erase else if");
+    console.log(isDrawing, "erase else if");
   } else if (this.value === document.getElementById("black").value) {
+    isDrawing = true;
     activateColorizer("black");
+    console.log(isDrawing, "black");
   } else if (this.value === document.getElementById("rgb").value) {
+    isDrawing = true;
     activateColorizer(getColor);
   }
 }
