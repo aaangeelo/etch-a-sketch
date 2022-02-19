@@ -29,23 +29,6 @@ function removeGrids() {
   }
 }
 
-// COLORS THE GRID
-function colorGrids(e) {
-  if (isDrawing === true) {
-    if (e.target !== e.currentTarget) {
-      let grids = document.getElementById(e.target.id);
-      if (typeof color === "function") {
-        grids.style.backgroundColor = color();
-      } else {
-        grids.style.backgroundColor = color;
-      }
-      grids.style.borderColor = "transparent";
-    }
-
-    e.stopPropagation();
-  }
-}
-
 // RANDOM COLOR
 function getColor() {
   var letters = "0123456789ABCDEF";
@@ -56,16 +39,30 @@ function getColor() {
   return color;
 }
 
-function colorize(e) {
-  colorGrids(e);
-  console.log(isDrawing, "click act");
-  gridContainer.addEventListener("mouseover", colorGrids);
+// COLORS THE GRID
+function colorGrids(e) {
+  isDrawing = true;
+  if (e.target !== e.currentTarget) {
+    let grids = document.getElementById(e.target.id);
+    if (typeof color === "function") {
+      grids.style.backgroundColor = color();
+    } else {
+      grids.style.backgroundColor = color;
+    }
+    grids.style.borderColor = "transparent";
+  }
+
+  e.stopPropagation();
 }
 
 function activateColorizer(colour) {
   color = colour;
 
-  gridContainer.addEventListener("click", colorize);
+  gridContainer.addEventListener("click", colorGrids);
+
+  gridContainer.addEventListener("mouseover", (e) => {
+    if (isDrawing === true) colorGrids(e);
+  });
 
   gridContainer.addEventListener("dblclick", () => {
     isDrawing = false;
@@ -80,29 +77,23 @@ function decolorizeGrids(e) {
 }
 
 function selectMode() {
+  isDrawing = false;
   if (this.value === document.getElementById("clear").value) {
     let allgrids = document.querySelectorAll(".grids");
     for (let i = 0; i < allgrids.length; i++) {
       allgrids[i].style.backgroundColor = "transparent";
       allgrids[i].style.borderColor = "black";
     }
-    //
-    isDrawing = false;
-    gridContainer.removeEventListener("click", colorize);
-    console.log(isDrawing, "clear else if");
+    gridContainer.removeEventListener("click", colorGrids);
   } else if (this.value === document.getElementById("erase").value) {
-    gridContainer.removeEventListener("click", colorize);
-    //
-    isDrawing = false;
+    gridContainer.removeEventListener("click", colorGrids);
     gridContainer.addEventListener("click", decolorizeGrids);
-    console.log(isDrawing, "erase else if");
   } else if (this.value === document.getElementById("black").value) {
-    isDrawing = true;
     activateColorizer("black");
-    console.log(isDrawing, "black");
+    gridContainer.removeEventListener("click", decolorizeGrids);
   } else if (this.value === document.getElementById("rgb").value) {
-    isDrawing = true;
     activateColorizer(getColor);
+    gridContainer.removeEventListener("click", decolorizeGrids);
   }
 }
 
