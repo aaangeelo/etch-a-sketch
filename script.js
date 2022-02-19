@@ -1,6 +1,7 @@
 // GLOBAL VALUES
 let gridContainer = document.getElementById("grid-container");
 let isDrawing = false;
+console.log(isDrawing);
 
 // CREATE AND REMOVE GRIDS
 function displayGrids(gridSizeValue) {
@@ -30,16 +31,16 @@ function removeGrids() {
 
 // COLORS THE GRID
 function colorGrids(color, e) {
+  isDrawing = true;
   if (isDrawing === true) {
     if (e.target !== e.currentTarget) {
       let grids = document.getElementById(e.target.id);
       if (typeof color === "function") {
         grids.style.backgroundColor = color();
-        grids.style.borderColor = "transparent";
       } else {
         grids.style.backgroundColor = color;
-        grids.style.borderColor = "transparent";
       }
+      grids.style.borderColor = "transparent";
     }
 
     e.stopPropagation();
@@ -57,13 +58,20 @@ function getColor() {
 }
 
 function activateColorizer(color) {
-  gridContainer.addEventListener("click", (e) => {
-    isDrawing = true;
+  function colorGridsWrapper(e) {
     colorGrids(color, e);
+  }
+
+  gridContainer.addEventListener("click", (e) => {
+    colorGrids(color, e);
+    console.log(isDrawing, "click activate");
   });
 
   gridContainer.addEventListener("mouseover", (e) => {
-    colorGrids(color, e);
+    if (isDrawing === true) {
+      colorGrids(color, e);
+      console.log(isDrawing, "mouseover activate");
+    }
   });
 
   gridContainer.addEventListener("dblclick", () => {
@@ -76,26 +84,26 @@ function decolorizeGrids(e) {
   let grids = document.getElementById(e.target.id);
   grids.style.backgroundColor = "transparent";
   grids.style.borderColor = "black";
+  console.log(isDrawing, "decolorizeGrids");
 }
 
 function selectMode() {
   if (this.value === document.getElementById("clear").value) {
-    isDrawing = false;
-    gridContainer.addEventListener("click", (e) => {
-      decolorizeGrids(e);
-    });
     let allgrids = document.querySelectorAll(".grids");
     for (let i = 0; i < allgrids.length; i++) {
       allgrids[i].style.backgroundColor = "transparent";
       allgrids[i].style.borderColor = "black";
     }
-  } else if (this.value === document.getElementById("erase").value) {
+    //
     isDrawing = false;
-    gridContainer.addEventListener("click", (e) => {
-      if (e.target !== e.currentTarget) {
-        decolorizeGrids(e);
-      }
-    });
+    gridContainer.addEventListener("click", decolorizeGrids);
+    // console.log(isDrawing, "clear else if");
+  } else if (this.value === document.getElementById("erase").value) {
+    gridContainer.removeEventListener("click", activateColorizer);
+    //
+    isDrawing = false;
+    gridContainer.addEventListener("click", decolorizeGrids);
+    // console.log(isDrawing, "erase else if");
   } else if (this.value === document.getElementById("black").value) {
     activateColorizer("black");
   } else if (this.value === document.getElementById("rgb").value) {
