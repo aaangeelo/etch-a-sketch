@@ -8,24 +8,27 @@
     <title>Etch-A-Sketch</title>
   </head>
   <body>
-    <header></header>
-    <main>
-      <div class="settings">
-        <div class="select-mode" id="select-mode">
+    <header class="header">
+      <h1 class="title">Etch-A-Sketch</h1>
+    </header>
+    <main class="contents">
+      <div class="settings leftSide">
+        <div class="selectMode" id="selectMode">
+          <label for="clear" class="modeLabel">Clear</label>
           <input type="radio" id="clear" name="mode" value="clear" />
-          <label for="clear">Clear</label>
 
+          <label for="erase" class="modeLabel">Erase</label>
           <input type="radio" id="erase" name="mode" value="erase" />
-          <label for="erase">Erase</label>
 
+          <label for="black" class="modeLabel">Black</label>
           <input type="radio" id="black" name="mode" value="black" />
-          <label for="black">Black</label>
 
+          <label for="rgb" class="modeLabel">RGB</label>
           <input type="radio" id="rgb" name="mode" value="rgb" />
-          <label for="rgb">RGB</label>
         </div>
 
-        <div class="girdSlider" id="gridSlider">
+        <div class="gridSlider" id="gridSlider">
+          <p class="displayGridSize" id="displayGridSize"></p>
           <input
             type="range"
             class="customGridSlider"
@@ -34,10 +37,9 @@
             max="50"
             value="16"
           />
-          <p class="displayGridSize" id="displayGridSize"></p>
         </div>
       </div>
-      <div class="gridContainer pad" id="gridContainer"></div>
+      <div class="gridContainer rightSide" id="gridContainer"></div>
     </main>
     <script src="script.js"></script>
   </body>

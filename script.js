@@ -70,7 +70,7 @@ function activateColorizer(colour) {
 
 function decolorizeGrids(e) {
   let grids = document.getElementById(e.target.id);
-  grids.style.backgroundColor = "transparent";
+  grids.style.backgroundColor = "white";
   grids.style.borderColor = "black";
   console.log(isDrawing, "decolorizeGrids");
 }
@@ -81,7 +81,7 @@ function selectMode() {
     gridContainer.removeEventListener("click", colorGrids);
     let allgrids = document.querySelectorAll(".grids");
     for (let i = 0; i < allgrids.length; i++) {
-      allgrids[i].style.backgroundColor = "transparent";
+      allgrids[i].style.backgroundColor = "white";
       allgrids[i].style.borderColor = "black";
     }
   } else if (this.value === document.getElementById("erase").value) {
