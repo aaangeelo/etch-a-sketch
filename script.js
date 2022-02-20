@@ -1,9 +1,9 @@
 // GLOBAL VALUES
-let gridContainer = document.getElementById("grid-container");
+let gridContainer = document.getElementById("gridContainer");
 let isDrawing = false;
 let color;
 
-// CREATE AND REMOVE GRIDS
+// CREATES GRIDS
 function displayGrids(gridSizeValue) {
   let idNum = 1;
   for (i = 1; i <= gridSizeValue; i++) {
@@ -29,7 +29,7 @@ function removeGrids() {
   }
 }
 
-// RANDOM COLOR
+// GENERATES RANDOM COLOR
 function getRandomColor() {
   var letters = "0123456789ABCDEF";
   var color = "#";
@@ -39,7 +39,7 @@ function getRandomColor() {
   return color;
 }
 
-// COLORS THE GRID
+// COLORS THE GRIDS
 function colorGrids(e) {
   isDrawing = true;
   if (e.target !== e.currentTarget) {
@@ -97,28 +97,19 @@ function selectMode() {
 }
 
 // EXECUTIONS AREA
-let defaultGridSizeValue = 16;
-displayGrids(defaultGridSizeValue);
+let gridSlider = document.getElementById("customGridSlider");
+let displayGridSize = document.getElementById("displayGridSize");
 
-document.getElementById("submit-grid-size").addEventListener("click", () => {
-  let newGridSizeValue = document.getElementById("grid-size").value;
+displayGridSize.textContent = `${gridSlider.value}x${gridSlider.value}`;
+displayGrids(gridSlider.value);
+
+gridSlider.addEventListener("input", () => {
+  displayGridSize.textContent = `${gridSlider.value}x${gridSlider.value}`;
   removeGrids();
-  displayGrids(newGridSizeValue);
+  displayGrids(gridSlider.value);
 });
 
 let modes = document.querySelectorAll('input[name="mode"]');
 for (const mode of modes) {
   mode.addEventListener("change", selectMode);
 }
-
-// RANGE BAR
-
-let gridSlider = document.getElementById("customGridSlider");
-let displayGridSize = document.getElementById("displayGridSize");
-
-displayGridSize.textContent = gridSlider.value;
-gridSlider.addEventListener("input", () => {
-  displayGridSize.textContent = gridSlider.value;
-  removeGrids();
-  displayGrids(gridSlider.value);
-});
