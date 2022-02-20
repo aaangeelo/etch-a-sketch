@@ -13,30 +13,59 @@
     </header>
     <main class="contents">
       <div class="settings leftSide">
+        <p class="identifier">Select Mode</p>
         <div class="selectMode" id="selectMode">
-          <label for="clear" class="modeLabel">Clear</label>
-          <input type="radio" id="clear" name="mode" value="clear" />
+          <input
+            type="radio"
+            id="clear"
+            name="mode"
+            value="clear"
+            class="mode"
+          />
+          <label for="clear" class="modeLabel">Clear</label><br />
 
-          <label for="erase" class="modeLabel">Erase</label>
-          <input type="radio" id="erase" name="mode" value="erase" />
+          <input
+            type="radio"
+            id="erase"
+            name="mode"
+            value="erase"
+            class="mode"
+          />
+          <label for="erase" class="modeLabel">Erase</label><br />
 
-          <label for="black" class="modeLabel">Black</label>
-          <input type="radio" id="black" name="mode" value="black" />
+          <input
+            type="radio"
+            id="black"
+            name="mode"
+            value="black"
+            class="mode"
+          />
+          <label for="black" class="modeLabel">Black</label><br />
 
+          <input type="radio" id="rgb" name="mode" value="rgb" class="mode" />
           <label for="rgb" class="modeLabel">RGB</label>
-          <input type="radio" id="rgb" name="mode" value="rgb" />
         </div>
 
-        <div class="gridSlider" id="gridSlider">
-          <p class="displayGridSize" id="displayGridSize"></p>
-          <input
-            type="range"
-            class="customGridSlider"
-            id="customGridSlider"
-            min="8"
-            max="50"
-            value="16"
-          />
+        <div class="slider">
+          <p class="identifier">Adjust Grid Size</p>
+          <div class="gridSlider" id="gridSlider">
+            <p class="displayGridSize" id="displayGridSize"></p>
+            <input
+              type="range"
+              class="customGridSlider"
+              id="customGridSlider"
+              min="8"
+              max="64"
+              value="16"
+            />
+          </div>
+        </div>
+        <div class="instructions">
+          <p class="identifier">How To Use</p>
+          <ul>
+            <li>Click to activate colorizer</li>
+            <li>Double click to deactivate</li>
+          </ul>
         </div>
       </div>
       <div class="gridContainer rightSide" id="gridContainer"></div>
