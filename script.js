@@ -97,7 +97,7 @@ function selectMode() {
 }
 
 // EXECUTIONS AREA
-let defaultGridSizeValue = 8;
+let defaultGridSizeValue = 16;
 displayGrids(defaultGridSizeValue);
 
 document.getElementById("submit-grid-size").addEventListener("click", () => {
@@ -110,3 +110,15 @@ let modes = document.querySelectorAll('input[name="mode"]');
 for (const mode of modes) {
   mode.addEventListener("change", selectMode);
 }
+
+// RANGE BAR
+
+let gridSlider = document.getElementById("customGridSlider");
+let displayGridSize = document.getElementById("displayGridSize");
+
+displayGridSize.textContent = gridSlider.value;
+gridSlider.addEventListener("input", () => {
+  displayGridSize.textContent = gridSlider.value;
+  removeGrids();
+  displayGrids(gridSlider.value);
+});

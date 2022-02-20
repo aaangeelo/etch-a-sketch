@@ -29,7 +29,7 @@
           <input
             type="number"
             min="8"
-            max="64"
+            max="50"
             name="grid-size"
             class="grid-size"
             id="grid-size"
@@ -39,12 +39,16 @@
             Change Grid Size
           </button>
         </div>
-        <div class="grid-customize" id="grid-customize">
+        <div class="girdSlider" id="gridSlider">
           <input
             type="range"
-            class="grid-customize-size"
-            id="grid-customize-size"
+            class="customGridSlider"
+            id="customGridSlider"
+            min="8"
+            max="50"
+            value="16"
           />
+          <p class="displayGridSize" id="displayGridSize"></p>
         </div>
       </div>
       <div class="grid-container pad" id="grid-container"></div>
