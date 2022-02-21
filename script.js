@@ -5,20 +5,13 @@ let color;
 
 // CREATES GRIDS
 function displayGrids(gridSizeValue) {
-  let idNum = 1;
-  for (i = 1; i <= gridSizeValue; i++) {
-    for (j = 1; j <= gridSizeValue; j++) {
-      let grids = document.createElement("div");
-      gridContainer.appendChild(grids);
-      grids.classList.add("grids");
-      // modifies the width and height of the grids
-      let wh = 500 / gridSizeValue;
-      grids.style.width = `${wh}px`;
-      grids.style.height = `${wh}px`;
-      // adds ID to each grids
-      grids.id = `id${idNum}`;
-      idNum++;
-    }
+  gridContainer.style.gridTemplateColumns = `repeat(${gridSizeValue}, 1fr)`;
+  gridContainer.style.gridTemplateRows = `repeat(${gridSizeValue}, 1fr)`;
+  for (i = 1; i <= gridSizeValue * gridSizeValue; i++) {
+    let grids = document.createElement("div");
+    gridContainer.appendChild(grids);
+    grids.classList.add("grids");
+    grids.id = `id${i}`;
   }
 }
 
@@ -115,24 +108,3 @@ window.onload = () => {
     mode.addEventListener("change", selectMode);
   }
 };
-
-// gridFIx
-let gridValue = 54;
-let container = document.createElement("div");
-container.classList.add("container");
-document.body.appendChild(container);
-container.style.gridTemplateColumns = `repeat(${gridValue}, 1fr)`;
-container.style.gridTemplateRows = `repeat(${gridValue}, 1fr)`;
-
-function createGrids(gridSizeValue) {
-  let idNum = 1;
-  for (i = 1; i <= gridSizeValue * gridSizeValue; i++) {
-    let grids = document.createElement("div");
-    grids.classList.add("containerGrids");
-    container.appendChild(grids);
-    grids.id = `id${idNum}`;
-    idNum++;
-  }
-}
-
-createGrids(gridValue);

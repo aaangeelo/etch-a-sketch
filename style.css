@@ -101,19 +101,19 @@ body {
 
 .gridContainer {
   box-sizing: border-box;
-  width: 510.3px;
-  height: 510.3px;
+  width: 510px;
+  height: 510px;
   border: black solid 5px;
   background-color: black;
   cursor: crosshair;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   border-radius: 7px;
+  display: grid;
 }
 
 .grids {
   border: black solid 1px;
   box-sizing: border-box;
-  float: left;
   background-color: white;
 }
 
@@ -173,24 +173,4 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 7px;
   background: #ffffff;
   cursor: pointer;
-}
-
-/* gridsFix */
-
-.container {
-  width: 500px;
-  height: 500px;
-  border: black solid 3px;
-  margin: 50px 400px;
-  box-sizing: border-box;
-  display: grid;
-}
-
-.containerGrids {
-  border: black solid 1px;
-  box-sizing: border-box;
-}
-
-.containerGrids:nth-child(odd) {
-  border: red solid 1px;
 }
