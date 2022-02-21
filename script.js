@@ -115,3 +115,24 @@ window.onload = () => {
     mode.addEventListener("change", selectMode);
   }
 };
+
+// gridFIx
+let gridValue = 54;
+let container = document.createElement("div");
+container.classList.add("container");
+document.body.appendChild(container);
+container.style.gridTemplateColumns = `repeat(${gridValue}, 1fr)`;
+container.style.gridTemplateRows = `repeat(${gridValue}, 1fr)`;
+
+function createGrids(gridSizeValue) {
+  let idNum = 1;
+  for (i = 1; i <= gridSizeValue * gridSizeValue; i++) {
+    let grids = document.createElement("div");
+    grids.classList.add("containerGrids");
+    container.appendChild(grids);
+    grids.id = `id${idNum}`;
+    idNum++;
+  }
+}
+
+createGrids(gridValue);

@@ -174,3 +174,23 @@ input[type="range"]::-moz-range-thumb {
   background: #ffffff;
   cursor: pointer;
 }
+
+/* gridsFix */
+
+.container {
+  width: 500px;
+  height: 500px;
+  border: black solid 3px;
+  margin: 50px 400px;
+  box-sizing: border-box;
+  display: grid;
+}
+
+.containerGrids {
+  border: black solid 1px;
+  box-sizing: border-box;
+}
+
+.containerGrids:nth-child(odd) {
+  border: red solid 1px;
+}
